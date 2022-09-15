@@ -144,6 +144,27 @@ var socdm = function(){
         }
 
     }
+    function indexOf(array, value, fromIndex=0){
+        if(fromIndex >= 0){
+            for(var i = fromIndex; i < array.length; i ++){
+                if(array[i] === value){
+                    return i
+                }
+            }
+        }
+        if(fromIndex < 0){
+            for(var i = array.length + fromIndex; i >= 0; i --){
+                if(array[i] === value){
+                    return i
+                }
+            }
+        }
+        return -1
+
+    }
+    function reverse(){
+
+    }
     // function map(collection,iteratee){
     //     var result=[]
     //     if(Array.isArray(collection) && typeof(iteratee) == 'function'){
@@ -175,7 +196,9 @@ var socdm = function(){
         compact,
         flatten,
         flattenDeep,
-        nth
+        nth,
+        indexOf,
+        reverse
         // forEach,
         // map
         
