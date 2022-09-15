@@ -54,6 +54,7 @@ var socdm = function(){
         for(var i = start;i < end; i ++){
             array[i] = value
         }
+        return array
         
     }
     function drop (array, n=1){
@@ -63,12 +64,42 @@ var socdm = function(){
         }
         return result
     }
+    function flatten(array){
+        if(!array){
+            return array
+        }
+        var result =[]
+        for(var i = 0 ; i < array.length; i++){
+            if(Array.isArray(array[i])){
+                result.push(...array[i])
+            }else{
+                result.push(array[i])
+            }
+        }
+        return result
+    }
+    function flattenDeep(array){
+        if(!array){
+            return array
+        }
+        var result =[]
+        for(var i = 0 ; i < array.length; i++){
+            if(Array.isArray(array[i])){
+                result.push(...array[i])
+            }else{
+                result.push(array[i])
+            }
+        }
+        return result
+    }
     
     return {
         chunk,
         fill,
         drop,
         compact,
+        flatten,
+        flattenDeep
 
     }
 }()

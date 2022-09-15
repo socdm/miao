@@ -9,80 +9,8 @@
 <body>
     
 </body>
-<script src="lodash.js"></script>
+<script src="socdm-lodash.js"></script>
 <script>
-    // var socdm={
-
-    var chunk  =  function(arr,size=1) {
-            var result=[]
-            var curArr=[]
-            var isFinish = false
-            if(!arr){
-                return arr
-            }
-            var count = size
-            for(var i = 0;i < arr.length; i ++){
-
-                if(count === 0&& isFinish == true)   // 重置全部参数，停止往同一个数组push
-                {
-                    count = size
-                    curArr =[]
-                    isFinish =false
-                }
-                //如果是按照单个数值分数组
-                if(size ===1){
-                   result.push([arr[i]]) 
-
-                }else if(count <= size && (arr.length - i) >= count){  //
-                        curArr.push(arr[i])
-                        count --
-                }if( count <= 0 ){
-                        result.push(curArr)
-                        isFinish = true
-                }
-                if( (arr.length - i) < count){
-                    curArr.push(arr[i])
-                    if(arr.length - i === 1 ){
-                        result.push(curArr)
-                    }
-                    count --
-                   }
-                
-            }
-          return result
-        }
-
-    var compact = function(arr){
-        var result =[]
-        for(var i = 0 ; i < arr.length; i ++){
-            if(Boolean(arr[i])){
-                result.push(arr[i])
-            }
-        }
-        return result
-    }
-
-    var fill = function(array, value, start=0, end=array.length){
-     
-        for(var i = start;i < end; i ++){
-            array[i] = value
-        }
-        
-    }
-    var drop = function (array, n=1){
-        var result=[]
-        for(var i = n ; i < array.length; i ++){
-            result.push(array[i])
-        }
-        return result
-    }
-
-    var findIndex = function (){
-
-    }
-
-
-
 // findIndex,findLastIndex,flatten,flattenDeep,flattenDepth
 // fromPairs,head,indexOf,lastIndexOf,initial,join,last,pull,reverse,every,some
 // countBy,groupBy,keyBy,forEach,map,filter,reduce,reduceRight,size,sortBy,sample,
