@@ -64,6 +64,55 @@ var socdm = function(){
         }
         return result
     }
+    function dropRight(array, n=1){
+        var result=[]
+        for(var i = 0 ; i < array.length - n; i ++){
+            result.push(array[i])
+        }
+        return result
+    }
+    function head(array){
+        if(array.length === 0){
+            return undefined
+        }else{
+            return array[0]
+        }
+        
+    }
+    function last(array){
+        if(array.length === 0){
+            return undefined
+        }else{
+            return array[array.length - 1]
+        }
+        
+    }
+    function min(array){
+        if(array.length === 0 ){
+            return undefined
+        }
+        var minNum = Infinity
+        for(var i = 0; i < array.length;i ++){
+            if(array[i] < minNum){
+                minNum = array[i]
+            }
+        }
+        return minNum
+
+    }
+    function max(array){
+        if(array.length === 0 ){
+            return undefined
+        }
+        var maxNum = -Infinity
+        for(var i = 0; i < array.length;i ++){
+            if(array[i] > maxNum){
+                maxNum = array[i]
+            }
+        }
+        return maxNum
+
+    }
     function flatten(array){
         if(!array){
             return array
@@ -84,37 +133,53 @@ var socdm = function(){
       
         return result
     }
-    function forEach(){
+    function nth(array, n=0){
+        if(array.length === 0 ){
+            return undefined
+        }
+        if(n >=0){
+            return array[n]
+        }else if(n < 0){
+            return array[array.length + n]
+        }
 
     }
-    function map(collection,iteratee){
-        var result=[]
-        if(Array.isArray(collection) && typeof(iteratee) == 'function'){
-            for(var i = 0 ; i < collection.length;i ++){
-                result.push(iteratee(collection[i]))
-            }
-        }else  if(typeof(collection) == 'object' && typeof(iteratee) == 'function'){
-            for(var objItem in collection){
-                result.push(iteratee(collection[objItem]))
-            }
-        }else if(typeof(collection) == 'object' && typeof(iteratee) == 'string'){
-            for(var i = 0 ; i < collection.length;i ++){
-                result.push((collection[i][iteratee]))
-            }
-        }
+    // function map(collection,iteratee){
+    //     var result=[]
+    //     if(Array.isArray(collection) && typeof(iteratee) == 'function'){
+    //         for(var i = 0 ; i < collection.length;i ++){
+    //             result.push(iteratee(collection[i]))
+    //         }
+    //     }else  if(typeof(collection) == 'object' && typeof(iteratee) == 'function'){
+    //         for(var objItem in collection){
+    //             result.push(iteratee(collection[objItem]))
+    //         }
+    //     }else if(typeof(collection) == 'object' && typeof(iteratee) == 'string'){
+    //         for(var i = 0 ; i < collection.length;i ++){
+    //             result.push((collection[i][iteratee]))
+    //         }
+    //     }
         
-        return result
-    }
+    //     return result
+    // }
     
     return {
         chunk,
         fill,
         drop,
+        dropRight,
+        head,
+        last,
+        min,
+        max,
         compact,
         flatten,
         flattenDeep,
-        forEach,
-        map
+        nth
+        // forEach,
+        // map
+        
+
 
     }
 }()
