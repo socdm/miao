@@ -1,72 +1,203 @@
-var socdm = function(){
-    function chunk(arr,size=1) {
-        var result=[]
-        var curArr=[]
-        var isFinish = false
-        if(!arr){
-            return arr
-        }
-        var count = size
-        for(var i = 0;i < arr.length; i ++){
+//lodash 实践
 
-            if(count === 0&& isFinish == true)   // 重置全部参数，停止往同一个数组push
-            {
-                count = size
-                curArr =[]
-                isFinish =false
-            }
-            //如果是按照单个数值分数组
-            if(size ===1){
-               result.push([arr[i]]) 
-
-            }else if(count <= size && (arr.length - i) >= count){  //
-                    curArr.push(arr[i])
-                    count --
-            }if( count <= 0 ){
-                    result.push(curArr)
-                    isFinish = true
-            }
-            if( (arr.length - i) < count){
-                curArr.push(arr[i])
-                if(arr.length - i === 1 ){
-                    result.push(curArr)
-                }
-                count --
-               }
-            
+var socdm = {
+    chunk: function (array, size) {
+      var res = []
+      var item = []
+      var index = 1
+      for (let i = 1; i <= size; i++) {
+        item.push(array[i])
+  
+      }
+      return res
+    },
+    compact: function (array) {
+      var res = []
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] !== false && array[i] !== 0 && array[i] !== null && array[i] !== "" && array[i] !== NaN) {
+          res.push(array[i])
         }
-      return result
-    }
-    function compact (arr){
-        var result =[]
-        for(var i = 0 ; i < arr.length; i ++){
-            if(Boolean(arr[i])){
-                result.push(arr[i])
-            }
+      }
+      return res
+    },
+    difference: function (array, ...array2) {
+  
+    },
+    differenceBy: function (array, array2, iteratee) {
+  
+    },
+    differenceWith: function () {
+  
+    },
+    drop: function (array, n = 1) {
+      var res = []
+      for (let i = 0; i < array.length; i++) {
+        if (i >= n) {
+          res.push(array[i])
         }
-        return result
-    }
-    
-    function fill(array, value, start=0, end=array.length){
-     
-        for(var i = start;i < end; i ++){
-            array[i] = value
+      }
+      return res
+    },
+    dropRight: function (array, n = 1) {
+      return drop(array.reverse(), n).reverse()
+    },
+    dropRightWhile: function (array, predicate) {
+  
+    },
+    dropWhile: function () {
+  
+    },
+    fill: function (array, value, start = 0, end = array.length) {
+      for (let i = 0; i < array.length; i++) {
+        if (i >= start && i < end) {
+          array[i] = value
         }
-        
-    }
-    function drop (array, n=1){
-        var result=[]
-        for(var i = n ; i < array.length; i ++){
-            result.push(array[i])
+      }
+      return array
+    },
+    findIndex: function (array, predicate) {
+      for (let i = 0; i < array.length; i++) {
+        if (predicate(array[i])) {
+          return i
+        } else return -1
+      }
+    },
+    findLastIndex: function (array, predicate) {
+      for (let i = 0; i < array.length; i++) {
+        if (predicate(array[i])) {
+          return array.length - i
+        } else return -1
+      }
+    },
+    flatten: function (array) {
+      return array.flat()
+    },
+    flattenDeep: function (array) {
+      var res = []
+  
+    },
+    flattenDepth: function (array, depth) {
+  
+    },
+    fromPairs: function (array) {
+      var res = {}
+      for (let i = 0; i < array.length; i++) {
+        const element = array[i]
+        if (!(element in res)) {
+          res[element[0]] = array[i][1]
         }
-        return result
-    }
-    
-    return {
-        chunk,
-        fill,
-        drop,
-        compact,
-
-    }
-}()
+      }
+      return res
+    },
+    head: function (array) {
+      if (array.length == 0) {
+        return undefined
+      } else return array[0]
+    },
+    indexOf: function (array, value, index = 0) {
+      if (index >= 0) {
+        for (let i = index; i < array.length; i++) {
+          if (array[i] == value) {
+            return i
+          }
+        }
+      } else {
+        for (let j = array.length + index; j < array.length; j++) {
+          if (array[j] == value) {
+            return j
+          }
+        }
+      }
+      return -1
+    },
+    initial: function (array) {
+      var res = []
+      if (array.length == 0) {
+        return []
+      } else {
+        for (let i = 0; i < array.length - 1; i++) {
+          res.push(array[i])
+        }
+        return res
+      }
+    },
+    intersection: function () {
+  
+    },
+    intersectionBy: function () {
+  
+    },
+    intersectionWith: function () {
+  
+    },
+    join: function (array, x) {
+      var s = ''
+      for (let index = 0; index < array.length; index++) {
+        s += array[index] + `${x}`
+      }
+      return s.slice(0, s.length - 1)
+    },
+    last: function () {
+      var res = []
+      if (array.length == 0) {
+        return []
+      } else {
+        res.push(array.length)
+        return res
+      }
+    },
+    lastIndexOf: function () {
+  
+    },
+    nth: function () {
+  
+    },
+    pull: function (array,...value) {
+      var res = [];
+      for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < value.length; j++) {
+          if (array[i] !== array[j]) {
+            res.push(array[i])
+          }
+        }
+      }
+      return res
+    },
+    pullAll: function () {
+  
+    },
+    pullAllBy: function () {
+  
+    },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  }
+  
