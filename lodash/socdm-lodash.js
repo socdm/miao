@@ -79,17 +79,30 @@ var socdm = function(){
         return result
     }
     function flattenDeep(array){
-        if(!array){
-            return array
-        }
+       
         var result =[]
-        for(var i = 0 ; i < array.length; i++){
-            if(Array.isArray(array[i])){
-                result.push(...array[i])
-            }else{
-                result.push(array[i])
+      
+        return result
+    }
+    function forEach(){
+
+    }
+    function map(collection,iteratee){
+        var result=[]
+        if(Array.isArray(collection) && typeof(iteratee) == 'function'){
+            for(var i = 0 ; i < collection.length;i ++){
+                result.push(iteratee(collection[i]))
+            }
+        }else  if(typeof(collection) == 'object' && typeof(iteratee) == 'function'){
+            for(var objItem in collection){
+                result.push(iteratee(collection[objItem]))
+            }
+        }else if(typeof(collection) == 'object' && typeof(iteratee) == 'string'){
+            for(var i = 0 ; i < collection.length;i ++){
+                result.push((collection[i][iteratee]))
             }
         }
+        
         return result
     }
     
@@ -99,7 +112,9 @@ var socdm = function(){
         drop,
         compact,
         flatten,
-        flattenDeep
+        flattenDeep,
+        forEach,
+        map
 
     }
 }()
