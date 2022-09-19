@@ -128,10 +128,9 @@ var socdm = function(){
         return result
     }
     function flattenDeep(array){
-       
-        var result =[]
-      
-        return result
+        return array.reduce((prev,cur,idx) =>{
+            return prev.concat(Array.isArray(cur) ? flattenDeep(cur) : cur)
+        },[])
     }
     function nth(array, n=0){
         if(array.length === 0 ){
@@ -162,8 +161,22 @@ var socdm = function(){
         return -1
 
     }
-    function reverse(){
-
+    //反转数组  双指针 i j
+    function reverse(array){
+        
+        if(array){
+            var i = 0
+            var j = array.length - 1
+            for(var i = 0; i < Math.ceil(array.length / 2); i ++,j--){
+                if (i !== j){
+                    var temp = array[j]
+                    array[j] = array[i]
+                    array[i] = temp
+                }
+            }
+            return array
+        }
+        return []
     }
     // function map(collection,iteratee){
     //     var result=[]
