@@ -143,6 +143,7 @@ var socdm = function(){
         }
 
     }
+    // 错误
     function indexOf(array, value, fromIndex=0){
         if(fromIndex >= 0){
             for(var i = fromIndex; i < array.length; i ++){
@@ -151,8 +152,11 @@ var socdm = function(){
                 }
             }
         }
+        // 输入：indexOf([1,2,1,2],2,-12)
+        // 输出：-1
+        // 期望：1
         if(fromIndex < 0){
-            for(var i = array.length + fromIndex; i >= 0; i --){
+            for(var i = array.length + fromIndex; i < array.length; i ++){
                 if(array[i] === value){
                     return i
                 }
@@ -210,7 +214,7 @@ var socdm = function(){
         flatten,
         flattenDeep,
         nth,
-        indexOf,
+        indexOf, 
         reverse
         // forEach,
         // map
