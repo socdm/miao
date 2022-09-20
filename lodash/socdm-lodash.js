@@ -182,6 +182,54 @@ var socdm = function(){
         }
         return []
     }
+    function intial(array){
+        var res = []
+        for(var i = 0 ; i < array.length - 1; i++){
+            res.push(array[i])
+        }
+        return res
+    }
+    function join(array,separator=','){
+        var str=''
+        for(var i = 0 ; i < array.length; i++){
+            if(i < array.length - 1){
+                str += array[i]+separator
+            }else{
+                str += array[i]
+            }
+        }
+        return str
+    }
+
+    //移除数组array中所有和给定值相等的元素，使用SameValueZero 进行全等比较。
+    //.pull(array, 2, 3);
+    function pull(array,...val){
+        var i = 0 
+        var j = 0
+         while(j < array.length){
+             var addFlag = false 
+             for(var pIdx = 0 ; pIdx < val.length ; pIdx++){
+                 if(array[j] !== val[pIdx]){
+                      addFlag = true
+                }else{
+                  addFlag = false 
+                  break
+                }
+             }
+             if(addFlag){
+                   array[i] = array[j]
+                    i ++
+                    j ++
+             }else{
+                  j ++
+             }
+
+            
+         }
+        return array.slice(0,i)
+
+    }
+
     // function map(collection,iteratee){
     //     var result=[]
     //     if(Array.isArray(collection) && typeof(iteratee) == 'function'){
@@ -215,7 +263,10 @@ var socdm = function(){
         flattenDeep,
         nth,
         indexOf, 
-        reverse
+        reverse,
+        intial,
+        join,
+        pull
         // forEach,
         // map
         
