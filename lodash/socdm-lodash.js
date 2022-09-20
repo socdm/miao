@@ -193,7 +193,7 @@ var socdm = function(){
         var str=''
         for(var i = 0 ; i < array.length; i++){
             if(i < array.length - 1){
-                str += array[i]+separator
+                str += ''+array[i]+separator
             }else{
                 str += array[i]
             }
