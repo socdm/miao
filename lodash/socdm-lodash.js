@@ -182,7 +182,7 @@ var socdm = function(){
         }
         return []
     }
-    function intial(array){
+    function initial(array){
         var res = []
         for(var i = 0 ; i < array.length - 1; i++){
             res.push(array[i])
@@ -264,7 +264,7 @@ var socdm = function(){
         nth,
         indexOf, 
         reverse,
-        intial,
+        initial,
         join,
         pull
         // forEach,
