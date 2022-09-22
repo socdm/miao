@@ -195,7 +195,7 @@ var socdm = function(){
             if(i < array.length - 1){
                 str += ''+array[i]+separator
             }else{
-                str += array[i]
+                str += ''+array[i]
             }
         }
         return str
@@ -228,6 +228,55 @@ var socdm = function(){
          }
         return array.slice(0,i)
 
+    }
+
+
+    //这个方法接收一个要移除值的数组
+    function pullAll(array,val){
+        var i = 0 
+        var j = 0
+         while(j < array.length){
+             var addFlag = false 
+             for(var pIdx = 0 ; pIdx < val.length ; pIdx++){
+                 if(array[j] !== val[pIdx]){
+                      addFlag = true
+                }else{
+                  addFlag = false 
+                  break
+                }
+             }
+             if(addFlag){
+                   array[i] = array[j]
+                    i ++
+                    j ++
+             }else{
+                  j ++
+             }
+
+            
+         }
+        return array.slice(0,i)
+
+    }
+    //高阶一些
+    // function keys(obj) {
+    //     var result = []
+    //     for (var key in obj) {
+    //       if (obj.hasOwnProperty(key)) {
+    //         result.push(key)
+    //       }
+    //     }
+    //     return result 
+    //   }
+    function keys(obj){
+        var result= []
+        for(var key in obj){
+            console.log(key)
+            if(Object.prototype.hasOwnProperty.call(obj,key)){
+                result.push(key)
+            }
+        }
+        return result
     }
 
     // function map(collection,iteratee){
@@ -266,7 +315,9 @@ var socdm = function(){
         reverse,
         initial,
         join,
-        pull
+        pull,
+        pullAll,
+        keys
         // forEach,
         // map
         
