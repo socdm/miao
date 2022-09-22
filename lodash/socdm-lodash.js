@@ -258,6 +258,23 @@ var socdm = function(){
         return array.slice(0,i)
 
     }
+    //使用二进制的方式检索来决定 value值 应该插入到数组中 尽可能小的索引位置，以保证array的排序。
+    function sortedIndex(array, value){
+       var left = 0
+       var right = array.length - 1
+       while(left < right){
+        var mid = Math.floor((left + right) / 2)
+        var num = array[mid]
+        if(num < value){
+            left = mid + 1
+        }else if(num >= value){
+            right = mid - 1
+        }
+       }
+       return left
+    }
+
+   
     //高阶一些
     // function keys(obj) {
     //     var result = []
@@ -317,6 +334,7 @@ var socdm = function(){
         join,
         pull,
         pullAll,
+        sortedIndex,
         keys
         // forEach,
         // map
