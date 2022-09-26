@@ -273,7 +273,13 @@ var socdm = function(){
        }
        return left
     }
-
+    //countBy
+    //创建一个组成对象，key（键）是经过 iteratee（迭代函数） 执行处理collection中每个元素后返回的结果，每个key（键）对应的值是 iteratee（迭代函数）返回该key（键）的次数（注：迭代次数）。 iteratee 调用一个参数：(value)。
+    function countBy(collection,operation){
+        if(typeof(operation) == 'string'){
+            
+        }
+    }
    
     //高阶一些
     // function keys(obj) {
@@ -291,6 +297,17 @@ var socdm = function(){
             console.log(key)
             if(Object.prototype.hasOwnProperty.call(obj,key)){
                 result.push(key)
+            }
+        }
+        return result
+    }
+    function union(...array){
+        var arr = array.flat()
+        var result =[]
+        for(var i = 0 ; i<arr.length;i ++){
+            // 如果不存在result
+            if(result.indexOf(arr[i]) < 0){
+                result.push(arr[i])
             }
         }
         return result
@@ -335,7 +352,9 @@ var socdm = function(){
         pull,
         pullAll,
         sortedIndex,
-        keys
+        countBy,
+        keys,
+        union
         // forEach,
         // map
         
