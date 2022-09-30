@@ -1,153 +1,179 @@
 //lodash 实践
 
-var socdm = function(){
-    function chunk(arr,size=1) {
-        var result=[]
-        var curArr=[]
-        var isFinish = false
-        if(!arr){
-            return arr
+var socdm = function () {
+    function chunk(arr, size = 1){
+        var res = []
+        for(var i = 0 ; i < arr.length ; i = i + size){
+            var part = arr.slice(i,i + size)
+            res.push(part)
         }
-        var count = size
-        for(var i = 0;i < arr.length; i ++){
-
-            if(count === 0&& isFinish == true)   // 重置全部参数，停止往同一个数组push
-            {
-                count = size
-                curArr =[]
-                isFinish =false
-            }
-            //如果是按照单个数值分数组
-            if(size ===1){
-               result.push([arr[i]]) 
-
-            }else if(count <= size && (arr.length - i) >= count){  //
-                    curArr.push(arr[i])
-                    count --
-            }if( count <= 0 ){
-                    result.push(curArr)
-                    isFinish = true
-            }
-            if( (arr.length - i) < count){
-                curArr.push(arr[i])
-                if(arr.length - i === 1 ){
-                    result.push(curArr)
-                }
-                count --
-               }
-            
-        }
-      return result
+        return res
     }
-    function compact (arr){
-        var result =[]
-        for(var i = 0 ; i < arr.length; i ++){
-            if(Boolean(arr[i])){
+    // function chunk(arr, size = 1) {
+    //     var result = []
+    //     var curArr = []
+    //     var isFinish = false
+    //     if (!arr) {
+    //         return arr
+    //     }
+    //     var count = size
+    //     for (var i = 0; i < arr.length; i++) {
+
+    //         if (count === 0 && isFinish == true)   // 重置全部参数，停止往同一个数组push
+    //         {
+    //             count = size
+    //             curArr = []
+    //             isFinish = false
+    //         }
+    //         //如果是按照单个数值分数组
+    //         if (size === 1) {
+    //             result.push([arr[i]])
+
+    //         } else if (count <= size && (arr.length - i) >= count) {  //
+    //             curArr.push(arr[i])
+    //             count--
+    //         } if (count <= 0) {
+    //             result.push(curArr)
+    //             isFinish = true
+    //         }
+    //         if ((arr.length - i) < count) {
+    //             curArr.push(arr[i])
+    //             if (arr.length - i === 1) {
+    //                 result.push(curArr)
+    //             }
+    //             count--
+    //         }
+
+    //     }
+    //     return result
+    // }
+    function compact(arr) {
+        var result = []
+        for (var i = 0; i < arr.length; i++) {
+            if (Boolean(arr[i])) {
                 result.push(arr[i])
             }
         }
         return result
     }
-    
-    function fill(array, value, start=0, end=array.length){
-     
-        for(var i = start;i < end; i ++){
+
+    function fill(array, value, start = 0, end = array.length) {
+
+        for (var i = start; i < end; i++) {
             array[i] = value
         }
         return array
-        
+
     }
-    function drop (array, n=1){
-        var result=[]
-        for(var i = n ; i < array.length; i ++){
+    function drop(array, n = 1) {
+        var result = []
+        for (var i = n; i < array.length; i++) {
             result.push(array[i])
         }
         return result
     }
-    function dropRight(array, n=1){
-        var result=[]
-        for(var i = 0 ; i < array.length - n; i ++){
+    function dropRight(array, n = 1) {
+        var result = []
+        for (var i = 0; i < array.length - n; i++) {
             result.push(array[i])
         }
         return result
     }
-    function head(array){
-        if(array.length === 0){
+    function head(array) {
+        if (array.length === 0) {
             return undefined
-        }else{
+        } else {
             return array[0]
         }
-        
+
     }
-    function last(array){
-        if(array.length === 0){
+    function last(array) {
+        if (array.length === 0) {
             return undefined
-        }else{
+        } else {
             return array[array.length - 1]
         }
-        
+
     }
-    function min(array){
-        if(array.length === 0 ){
+    function min(array) {
+        if (array.length === 0) {
             return undefined
         }
         var minNum = Infinity
-        for(var i = 0; i < array.length;i ++){
-            if(array[i] < minNum){
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] < minNum) {
                 minNum = array[i]
             }
         }
         return minNum
 
     }
-    function max(array){
-        if(array.length === 0 ){
+    function max(array) {
+        if (array.length === 0) {
             return undefined
         }
         var maxNum = -Infinity
-        for(var i = 0; i < array.length;i ++){
-            if(array[i] > maxNum){
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] > maxNum) {
                 maxNum = array[i]
             }
         }
         return maxNum
 
     }
-    function flatten(array){
-        if(!array){
+    function flatten(array) {
+        if (!array) {
             return array
         }
-        var result =[]
-        for(var i = 0 ; i < array.length; i++){
-            if(Array.isArray(array[i])){
+        var result = []
+        for (var i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i])) {
                 result.push(...array[i])
-            }else{
+            } else {
                 result.push(array[i])
             }
         }
         return result
     }
-    function flattenDeep(array){
-        return array.reduce((prev,cur,idx) =>{
+    function flattenDeep(array) {
+        return array.reduce((prev, cur, idx) => {
             return prev.concat(Array.isArray(cur) ? flattenDeep(cur) : cur)
-        },[])
+        }, [])
     }
-    function nth(array, n=0){
-        if(array.length === 0 ){
+    function flattenDepth(array, depth = 1) {
+        if (depth == 0) {
+            return array
+        }
+        var result = []
+        for (var i = 0; i < array.length; i++) {
+            if (Array.isArray(array[i]) && depth > 0) {
+                result = result.concat(flattenDepth(array[i], depth - 1))
+            } else {
+                result.push(array[i])
+            }
+        }
+        return result
+    }
+    //
+    function findIndex() {
+
+    }
+    function nth(array, n = 0) {
+        if (array.length === 0) {
             return undefined
         }
-        if(n >=0){
+        if (n >= 0) {
             return array[n]
-        }else if(n < 0){
+        } else if (n < 0) {
             return array[array.length + n]
         }
 
     }
     // 错误
-    function indexOf(array, value, fromIndex=0){
-        if(fromIndex >= 0){
-            for(var i = fromIndex; i < array.length; i ++){
-                if(array[i] === value){
+    function indexOf(array, value, fromIndex = 0) {
+        if (fromIndex >= 0) {
+            for (var i = fromIndex; i < array.length; i++) {
+                if (array[i] === value) {
                     return i
                 }
             }
@@ -155,9 +181,9 @@ var socdm = function(){
         // 输入：indexOf([1,2,1,2],2,-12)
         // 输出：-1
         // 期望：1
-        if(fromIndex < 0){
-            for(var i = array.length + fromIndex; i < array.length; i ++){
-                if(array[i] === value){
+        if (fromIndex < 0) {
+            for (var i = array.length + fromIndex; i < array.length; i++) {
+                if (array[i] === value) {
                     return i
                 }
             }
@@ -165,14 +191,23 @@ var socdm = function(){
         return -1
 
     }
+    // 从右到左寻找指定元素value,返回下标
+    function lastIndexOf(array, value, fromIndex = array.length - 1) {
+        for (var i = fromIndex; i >= 0; i--) {
+            if (array[i] === value) {
+                return i
+            }
+        }
+        return -1
+    }
     //反转数组  双指针 i j
-    function reverse(array){
-        
-        if(array){
+    function reverse(array) {
+
+        if (array) {
             var i = 0
             var j = array.length - 1
-            for(var i = 0; i < Math.ceil(array.length / 2); i ++,j--){
-                if (i !== j){
+            for (var i = 0; i < Math.ceil(array.length / 2); i++, j--) {
+                if (i !== j) {
                     var temp = array[j]
                     array[j] = array[i]
                     array[i] = temp
@@ -182,20 +217,30 @@ var socdm = function(){
         }
         return []
     }
-    function initial(array){
+
+    // reverse 使用新数组做法
+
+    // function reverse(array){
+    //     var result = []
+    //     for(var i = array.length - 1; i >=0; i--){
+    //         result[result.length] = array[i]
+    //     }
+    //     return result
+    // }
+    function initial(array) {
         var res = []
-        for(var i = 0 ; i < array.length - 1; i++){
+        for (var i = 0; i < array.length - 1; i++) {
             res.push(array[i])
         }
         return res
     }
-    function join(array,separator=','){
-        var str=''
-        for(var i = 0 ; i < array.length; i++){
-            if(i < array.length - 1){
-                str += ''+array[i]+separator
-            }else{
-                str += ''+array[i]
+    function join(array, separator = ',') {
+        var str = ''
+        for (var i = 0; i < array.length; i++) {
+            if (i < array.length - 1) {
+                str += '' + array[i] + separator
+            } else {
+                str += '' + array[i]
             }
         }
         return str
@@ -203,84 +248,84 @@ var socdm = function(){
 
     //移除数组array中所有和给定值相等的元素，使用SameValueZero 进行全等比较。
     //.pull(array, 2, 3);
-    function pull(array,...val){
-        var i = 0 
+    function pull(array, ...val) {
+        var i = 0
         var j = 0
-         while(j < array.length){
-             var addFlag = false 
-             for(var pIdx = 0 ; pIdx < val.length ; pIdx++){
-                 if(array[j] !== val[pIdx]){
-                      addFlag = true
-                }else{
-                  addFlag = false 
-                  break
+        while (j < array.length) {
+            var addFlag = false
+            for (var pIdx = 0; pIdx < val.length; pIdx++) {
+                if (array[j] !== val[pIdx]) {
+                    addFlag = true
+                } else {
+                    addFlag = false
+                    break
                 }
-             }
-             if(addFlag){
-                   array[i] = array[j]
-                    i ++
-                    j ++
-             }else{
-                  j ++
-             }
+            }
+            if (addFlag) {
+                array[i] = array[j]
+                i++
+                j++
+            } else {
+                j++
+            }
 
-            
-         }
-        return array.slice(0,i)
+
+        }
+        return array.slice(0, i)
 
     }
 
 
     //这个方法接收一个要移除值的数组
-    function pullAll(array,val){
-        var i = 0 
+    function pullAll(array, val) {
+        var i = 0
         var j = 0
-         while(j < array.length){
-             var addFlag = false 
-             for(var pIdx = 0 ; pIdx < val.length ; pIdx++){
-                 if(array[j] !== val[pIdx]){
-                      addFlag = true
-                }else{
-                  addFlag = false 
-                  break
+        while (j < array.length) {
+            var addFlag = false
+            for (var pIdx = 0; pIdx < val.length; pIdx++) {
+                if (array[j] !== val[pIdx]) {
+                    addFlag = true
+                } else {
+                    addFlag = false
+                    break
                 }
-             }
-             if(addFlag){
-                   array[i] = array[j]
-                    i ++
-                    j ++
-             }else{
-                  j ++
-             }
+            }
+            if (addFlag) {
+                array[i] = array[j]
+                i++
+                j++
+            } else {
+                j++
+            }
 
-            
-         }
-        return array.slice(0,i)
+
+        }
+        return array.slice(0, i)
 
     }
     //使用二进制的方式检索来决定 value值 应该插入到数组中 尽可能小的索引位置，以保证array的排序。
-    function sortedIndex(array, value){
-       var left = 0
-       var right = array.length - 1
-       while(left < right){
-        var mid = Math.floor((left + right) / 2)
-        var num = array[mid]
-        if(num < value){
-            left = mid + 1
-        }else if(num >= value){
-            right = mid - 1
+    function sortedIndex(array, value) {
+        var left = 0
+        var right = array.length - 1
+        while (left < right) {
+            var mid = Math.floor((left + right) / 2)
+            var num = array[mid]
+            if (num < value) {
+                left = mid + 1
+            } else if (num >= value) {
+                right = mid - 1
+            }
         }
-       }
-       return left
+        return left
     }
     //countBy
     //创建一个组成对象，key（键）是经过 iteratee（迭代函数） 执行处理collection中每个元素后返回的结果，每个key（键）对应的值是 iteratee（迭代函数）返回该key（键）的次数（注：迭代次数）。 iteratee 调用一个参数：(value)。
-    function countBy(collection,operation){
-        if(typeof(operation) == 'string'){
-            
+    function countBy(collection, operation) {
+        if (typeof (operation) == 'string') {
+
         }
     }
-   
+
     //高阶一些
     // function keys(obj) {
     //     var result = []
@@ -291,74 +336,171 @@ var socdm = function(){
     //     }
     //     return result 
     //   }
-    function keys(obj){
-        var result= []
-        for(var key in obj){
+    function keys(obj) {
+        var result = []
+        for (var key in obj) {
             console.log(key)
-            if(Object.prototype.hasOwnProperty.call(obj,key)){
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
                 result.push(key)
             }
         }
         return result
     }
-    function union(...array){
+    function union(...array) {
         var arr = array.flat()
-        var result =[]
-        for(var i = 0 ; i<arr.length;i ++){
+        var result = []
+        for (var i = 0; i < arr.length; i++) {
             // 如果不存在result
-            if(result.indexOf(arr[i]) < 0){
+            if (result.indexOf(arr[i]) < 0) {
                 result.push(arr[i])
             }
         }
         return result
     }
+    function unionBy(...array) {
+        var iteratee = array.pop()
+        var result = []
+        var temp = []
+        if (typeof (iteratee) == 'function') {
+            for (var i = 0; i < array.length; i++) {
+                var num = iteratee(Array.isArray(array[i]) ? flattenDeep(array[i]) : array[i])
+                if (temp.indexOf(num) == -1) {
+                    temp.push(num)
+                    result.push(array[i])
+                }
+            }
 
-    // function map(collection,iteratee){
-    //     var result=[]
-    //     if(Array.isArray(collection) && typeof(iteratee) == 'function'){
-    //         for(var i = 0 ; i < collection.length;i ++){
-    //             result.push(iteratee(collection[i]))
-    //         }
-    //     }else  if(typeof(collection) == 'object' && typeof(iteratee) == 'function'){
-    //         for(var objItem in collection){
-    //             result.push(iteratee(collection[objItem]))
-    //         }
-    //     }else if(typeof(collection) == 'object' && typeof(iteratee) == 'string'){
-    //         for(var i = 0 ; i < collection.length;i ++){
-    //             result.push((collection[i][iteratee]))
-    //         }
-    //     }
-        
-    //     return result
-    // }
-    
-    return {
-        chunk,
-        fill,
-        drop,
-        dropRight,
-        head,
-        last,
-        min,
-        max,
-        compact,
-        flatten,
-        flattenDeep,
-        nth,
-        indexOf, 
-        reverse,
-        initial,
-        join,
-        pull,
-        pullAll,
-        sortedIndex,
-        countBy,
-        keys,
-        union
-        // forEach,
-        // map
-        
+        }
+        if (typeof (iteratee) == 'string') {
+            for (var i = 0; i < array.length; i++) {
+                if (typeof (iteratee) == 'function') {
+                    var num = array[i][iteratee]
+                }
 
+                if (temp.indexOf(num) == -1) {
+                    temp.push(num)
+                    result.push(array[i])
+                }
+            }
+
+        }
+
+        return result
 
     }
+
+
+    function uniq(array) {
+        var map = {}
+        var result = []
+        array.forEach((element, index) => {
+            if (!(element in map)) {
+                result.push(element)
+                map[element] = 1
+            }
+        });
+        return result
+    }
+    // 检查集合中是否存在value
+    // collection (Array/Object/string)
+    function includes(collection, value, fromIndex = 0) {
+        console.log(typeof(collection))
+        if (typeof (collection) === 'object') {
+            for (const item in collection) {
+                if (collection[item] === value) {
+                    return true
+                }
+            }
+            return false
+        }else if (typeof (collection) == 'Array') {
+           
+            if (fromIndex >= 0) {
+                for (var i = fromIndex; i < collection.length; i++) {
+                    if (collection[i] == value) {
+                        return true
+                    }
+                }
+            } else if(fromIndex < 0){
+                for (var i = collection.length - fromIndex; i >= 0; i--)
+                    if (collection[i] == value) {
+                        return true
+                    }
+            }
+            return false
+        }else if(typeof(collection) == 'string'){
+            var count = 0
+            let j =0
+            for(let i = 0; i < value.length; i ++){
+               
+               for( ; j < collection.length; j ++){
+                if(value[i] === collection[j]){
+                    count ++            
+                    if(count == value.length){
+                        return true
+                    }
+                    value = value.slice(i+1)
+                    
+                }else{
+                    count = 0
+                }
+               }
+            }
+            return false
+        }
+}
+
+// function map(collection,iteratee){
+//     var result=[]
+//     if(Array.isArray(collection) && typeof(iteratee) == 'function'){
+//         for(var i = 0 ; i < collection.length;i ++){
+//             result.push(iteratee(collection[i]))
+//         }
+//     }else  if(typeof(collection) == 'object' && typeof(iteratee) == 'function'){
+//         for(var objItem in collection){
+//             result.push(iteratee(collection[objItem]))
+//         }
+//     }else if(typeof(collection) == 'object' && typeof(iteratee) == 'string'){
+//         for(var i = 0 ; i < collection.length;i ++){
+//             result.push((collection[i][iteratee]))
+//         }
+//     }
+
+//     return result
+// }
+
+return {
+    chunk,
+    fill,
+    drop,
+    dropRight,
+    head,
+    last,
+    min,
+    max,
+    compact,
+    flatten,
+    flattenDeep,
+    flattenDepth,
+    // findIndex,
+    nth,
+    indexOf,
+    lastIndexOf,
+    reverse,
+    initial,
+    join,
+    pull,
+    pullAll,
+    sortedIndex,
+    countBy,
+    keys,
+    union,
+    unionBy,
+    uniq,
+    includes
+    // forEach,
+    // map
+
+
+
+}
 }()
