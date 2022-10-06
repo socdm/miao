@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Regex 101</title>
+    <style>
+        body {
+            background-color: #e5e5e5;
+            color: #333;
+        }
+
+
+        .regex101-main {
+            width: 500px;
+            margin: 20px auto;
+
+        }
+
+        .regex101-main h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .regex101-main .title {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: bold;
+            margin: 1.5em 0 .5em;
+        }
+
+        #regexInput,
+        #stringInput,
+        #result {
+            box-sizing: border-box;
+            font-family: consolas;
+            font-size: 1.5em;
+            outline: none;
+            border-radius: .3em;
+            padding: 0.5em;
+            border-color: transparent;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+            background-color: white;
+
+        }
+
+        #regexInput,
+        #replacementString {
+            width: 100%;
+        }
+
+        #replacementString {
+
+            box-sizing: border-box;
+            font-family: consolas;
+            font-size: 1.5em;
+            outline: none;
+            border-radius: .3em;
+            padding: 0.5em;
+            border-color: transparent;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+            background-color: white;
+
+
+        }
+
+        #stringInput {
+
+            width: 100%;
+            resize: none;
+            height: 200px;
+            background: transparent;
+            line-height: 1.5;
+            overflow: auto;
+
+        }
+
+        #result {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 200px;
+            width: 100%;
+            background-color: white;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            z-index: -1;
+            line-height: 1.5;
+            overflow: auto;
+            margin: 0;
+
+
+        }
+
+        #substitutionResult {
+            height: 100px;
+            box-sizing: border-box;
+            font-family: consolas;
+            font-size: 1.5em;
+            outline: none;
+            border-radius: .3em;
+            padding: 0.5em;
+            border-color: transparent;
+            box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+            background-color: white;
+            overflow: auto;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+
+        }
+
+        #stringInput span,
+        #result span {
+
+            background-color: #d5ebff;
+
+        }
+
+        .showOff {
+            position: relative;
+        }
+
+        #info {
+            display: none;
+            background-color: #bf4343;
+            color: white;
+            margin: .5em 0;
+            padding: .3em;
+            box-sizing: border-box;
+            border-radius: .3em;
+        }
+
+        #result span:empty {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            margin-left: -1px;
+            margin-right: -1px;
+            background-image: linear-gradient(purple)
+        }
+
+        #result span:nth-child(even) {
+            font-weight: normal;
+            background-color: #9fcfff;
+        }
+
+        #regexpOptions {
+            margin: .5em .3em;
+            font-size: 1em;
+        }
+
+        #regexpOptions label {
+            margin: 0 .5em 0 .2em;
+        }
+
+        [data-group-index="1"] {
+            background-color: #c4e8ac;
+        }
+
+        [data-group-index="2"] {
+            background-color: #f6d7a6;
+        }
+
+        [data-group-index="3"] {
+            background-color: #c8c8ff;
+        }
+
+        [data-group-index="4"] {
+            background-color: #f9c0bb;
+        }
+
+        [data-group-index="5"] {
+            background-color: #c8e7d6;
+        }
+
+        [data-group-index="6"] {
+            background-color: #c4e8ac;
+        }
+
+        [data-group-index="7"] {
+            background-color: #c4e8ac;
+        }
+
+        [data-group-index]:hover {
+            box-shadow: 0 0 3px 1px grey;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* 选中里面有元素被hover的任意元素 */
+        /* 重复一遍是为了刻意提升其优先级 */
+        *:has(:hover):has(:hover) {
+            box-shadow: none;
+        }
+
+        /* :has([data-group-index]:hover) {
+      background-color: initial;
+    } */
+        /* [data-group-index]:hover * {
+      background-color: inherit !important;
+    } */
+
+        span:hover :not(:has(:hover)):hover * {
+            background-color: inherit !important;
+        }
+
+        span:hover:not(:has(:hover)) * {
+            background-color: inherit !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="regex101-main">
+        <h1>Mini Regex 101</h1>
+        <div class="title">Regular Expressions(正则表达式)</div>
+        <input type="text" name="" id="regexInput" oninput="run()">
+        <div id="regexpOptions">
+            <strong>OPTIONS:(选项)</strong>
+            <label><input type="checkbox" onchange="run()" checked data-flag="g" id="flagGlobal"> g</label>
+            <label><input type="checkbox" onchange="run()" checked data-flag="m" id="flagMultiline"> m</label>
+            <label><input type="checkbox" onchange="run()" data-flag="i" id="flagIgnoreCase"> i</label>
+            <label><input type="checkbox" onchange="run()" data-flag="y" id="flagSticky"> y</label>
+            <label><input type="checkbox" onchange="run()" data-flag="u" id="flagUnicode"> u</label>
+            <label><input type="checkbox" onchange="run()" data-flag="s" id="flagSingleLine"> s</label>
+            <label><input type="checkbox" onchange="run()" data-flag="d" id="flagIndices"> d</label>
+            <span id="info"></span>
+        </div>
+        <div class="showOff">
+            <textarea name="" id="stringInput" oninput="run()" onscroll="upDateH()"
+                spellcheck="false"> foo bar baz 111 baz 222 ddddd 333 cccc </textarea>
+            <pre id="result"></pre>
+        </div>
+        <div class="title"><strong>SUBSTITUTION(替换)</strong></div>
+        <input oninput="run()" type="text" id="replacementString">
+        <pre id="substitutionResult"></pre>
+    </div>
+</body>
+<script>
+    run()
+    function run() {
+
+        var reStr = regexInput.value
+        var text = stringInput.value
+        var html = ''
+        var match = null
+        var lastIndex = 0
+        var flags = getFlags()
+
+        try {
+            var re = new RegExp(reStr, flags)
+        } catch (error) {
+            info.setAttribute('style', 'display:inline-block')
+            info.innerHTML = error
+            return
+        }
+        console.log(re)
+        info.setAttribute('style', 'none')
+        info.innerHTML = ''
+
+        while (match = re.exec(text)) {
+            html += text.slice(lastIndex, match.index)
+            html += `<span title="Pos:${match.index} - ${match.index + match[0].length}">` + match[0] + `</span>`
+            lastIndex = re.lastIndex
+            if (!re.global) {
+                lastIndex = match.length + match[0].length
+                break
+            }
+
+            if (match[0].length == 0) {
+                re.lastIndex++
+            }
+
+        }
+        html += text.slice(lastIndex)
+        result.innerHTML = html
+        substitutionResult.innerHTML = text.replace(re, replacementString.value)
+
+    }
+
+    //获取匹配属性
+    function getFlags() {
+        var result = ''
+        if (flagGlobal.checked == true) {
+            result += 'g'
+        }
+        if (flagMultiline.checked == true) {
+            result += 'm'
+        }
+        if (flagIgnoreCase.checked == true) {
+            result += 'i'
+        }
+        if (flagSticky.checked == true) {
+            result += 'y'
+        }
+        if (flagUnicode.checked == true) {
+            result += 'u'
+        }
+        if (flagSingleLine.checked == true) {
+            result += 's'
+        }
+        if (flagIndices.checked == true) {
+            result += 'd'
+        }
+        return result
+    }
+
+    // 更新滚动条高度
+    function upDateH() {
+        console.log(stringInput.scrollTop)
+        result.scrollTo(0, stringInput.scrollTop)
+    }
+</script>
+
+</html>
